@@ -1,0 +1,261 @@
+import { Notes } from 'mdx-deck'
+import { Appear, Image } from '@mdx-deck/components'
+import highlight from '@mdx-deck/themes/syntax-highlighter'
+
+export const themes = [
+  highlight
+]
+
+# Symbols complicated it all
+
+_@robinpokorny_
+
+---
+
+# Why I talk about it
+<Notes>Good guy Robin</Notes>
+
+---
+
+# Symbols
+
+```js
+const sym = Symbol()
+
+typeof sym
+// -> "symbol"
+
+sym === Symbol()
+// -> false
+```
+
+<Notes>No literal, not a constructor</Notes>
+
+---
+
+## Primitive values
+
+<ul>
+  <Appear>
+    <li> boolean </li>
+    <li> number </li>
+    <li> string </li>
+    <li> undefined </li>
+    <li> null </li>
+    <li> <b>symbol</b> </li>
+  </Appear>
+</ul>
+
+### complication #1
+
+---
+
+## So what?
+
+```js
+const sym = Symbol()
+
+const o = {
+  name: "My key is a string"
+  [sym]: "My key is a symbol"
+}
+
+o[sym1]
+// -> "My key is a symbol"
+```
+<Notes>prop key = prop name | prop symbol </Notes>
+
+---
+
+## Convertion
+
+```js
+Boolean(sym)
+// -> true
+```
+```js
+!sym
+// -> false
+```
+
+---
+
+## Convertion
+
+```js
+Number(sym)
+// -> TypeError
+```
+```js
+sym * 5
+// -> TypeError
+```
+
+### complication #2
+
+---
+
+## Convertion
+
+```js
+String(sym)
+// -> "Symbol()"
+```
+```js
+'' + sym
+// -> TypeError
+
+`${"${sym}"}`
+// -> TypeError
+```
+
+### complication #3
+
+---
+
+# Object inspection
+
+---
+
+## symbol vs enumerable
+
+---
+
+```js
+const c = Symbol();
+const d = Symbol.for("d")
+
+const o = { a: 1, [c]: 10 };
+
+Object.defineProperty(o, "b", {
+  value: 2,
+  enumerable: false
+});
+Object.defineProperty(o, d, {
+  value: 20,
+  enumerable: false
+});
+```
+
+---
+
+<img src={require('file-loader!./images/enum-symbol.png')} />
+
+---
+
+## Access
+
+```js
+o.a
+// -> 1
+
+o.b
+// -> 2
+
+o[c]
+// -> 10
+
+o[d]
+// -> 20
+```
+
+---
+
+## hasOwnProperty
+
+```js
+o.hasOwnProperty('a')
+// -> true
+
+o.hasOwnProperty('b')
+// -> true
+
+o.hasOwnProperty(c)
+// -> true
+
+o.hasOwnProperty(d)
+// -> true
+```
+
+---
+
+## keys
+
+```js
+Object.keys(o)
+// -> ["a"]
+
+Object.entries(o)
+// -> [["a", 1]]
+```
+### complication #4
+
+---
+
+## Descriptors
+
+```js
+Object.getOwnPropertyDescriptors(o)
+// -> {
+//   a: {…}, b: {…},
+//   Symbol(): {…}, Symbol(d): {…}
+// }
+
+```
+### complication #5
+
+---
+
+## getOwn
+
+```js
+Object.getOwnPropertyNames(o)
+// -> ["a", "b"]
+Object.getOwnPropertySymbols(o)
+// -> [Symbol(), Symbol(d)]
+```
+
+---
+
+## assign
+
+```js
+Object.assign({}, o)
+// -> {a: 1, Symbol(): 10}
+
+{ ...o }
+// -> {a: 1, Symbol(): 10}
+```
+
+---
+
+## JSON
+
+```js
+JSON.stringify(o)
+// -> `{"a":1}`
+
+```
+### complication #6
+
+---
+
+## Reflect
+
+```js
+Reflect.ownKeys(o)
+// -> ["a", "b", Symbol(), Symbol(d)]
+```
+
+---
+
+# Where to use
+
+---
+
+
+
+---
+
+
+# 👋
