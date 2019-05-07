@@ -1,18 +1,16 @@
 import { Notes } from 'mdx-deck'
 import { Appear, Image } from '@mdx-deck/components'
-import highlight from '@mdx-deck/themes/syntax-highlighter'
 
-export const themes = [
-  highlight
-]
+export { default as theme } from './src/theme'
+
 
 # Symbols complicated it all
 
-_@robinpokorny_
+_by [Robin Pokorny](https://robinpokorny.com)_
 
 ---
 
-# Why I talk about it
+# Why talk about it?
 <Notes>Good guy Robin</Notes>
 
 ---
@@ -46,11 +44,24 @@ sym === Symbol()
   </Appear>
 </ul>
 
+---
+
+## Primitive values
+
+<ul>
+    <li> boolean </li>
+    <li> number </li>
+    <li> string </li>
+    <li> undefined </li>
+    <li> null </li>
+    <li> <b>symbol</b> </li>
+</ul>
+
 ### complication #1
 
 ---
 
-## So what?
+## What for?
 
 ```js
 const sym = Symbol()
@@ -253,9 +264,49 @@ Reflect.ownKeys(o)
 
 ---
 
+## 1. Hidden properties
 
+```js
+const ROLE = Symbol()
+
+const createAdmin = (name) => ({
+  name,
+  [ROLE]: "admin"
+})
+
+const isAdmin = ({[ROLE]: role}) =>
+  role === 'admin'
+```
 
 ---
 
+## 2. Meta-data
+
+* Well-known symbols on Symbol object
+* `Symbol.iterator`
+* written as `@@iterator`
+* Option for libraries
+
+---
+
+## Some well-known symbols
+
+* `@@iterator`
+* `@@toPrimitive`
+* `@@match`
+* `@@isConcatSpreadable`
+
+---
+
+# 👫
+# Symbols are your friends! 
+
+<Appear>
+  <h3>If you do not overuse them…</h3>
+</Appear>
+
+---
 
 # 👋
+
+[symbols-complicated-it-all.netlify.com](http://symbols-complicated-it-all.netlify.com/)
