@@ -30,7 +30,7 @@ const Provider = ({ children, index, length }) => (
     >
       <div
         style={{
-          background: '#790f5b',
+          background: '#f00',
           height: 3,
           width: `${100 * (index + 1) / length}%`
         }}
