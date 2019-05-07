@@ -15,7 +15,7 @@ const Provider = ({ children, index, length }) => (
       }}
     >
       <span>Node.js Meetup #34</span>
-      <a style={{ color: '#790f5b', textDecoration: 'none' }} href="https://twitter.com/robinpokorny">
+      <a style={{ color: '#f00', textDecoration: 'none' }} href="https://twitter.com/robinpokorny">
         @robinpokorny
       </a>
     </div>

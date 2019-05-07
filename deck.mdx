@@ -114,8 +114,6 @@ String(sym)
 ```
 ```js
 '' + sym
-// -> TypeError
-
 `${"${sym}"}`
 // -> TypeError
 ```
@@ -138,14 +136,10 @@ const d = Symbol.for("d")
 
 const o = { a: 1, [c]: 10 };
 
-Object.defineProperty(o, "b", {
-  value: 2,
-  enumerable: false
-});
-Object.defineProperty(o, d, {
-  value: 20,
-  enumerable: false
-});
+Object.defineProperty(o, "b",
+  { value: 2, enumerable: false });
+Object.defineProperty(o, d,
+  { value: 20, enumerable: false});
 ```
 
 ---
@@ -159,13 +153,10 @@ Object.defineProperty(o, d, {
 ```js
 o.a
 // -> 1
-
 o.b
 // -> 2
-
 o[c]
 // -> 10
-
 o[d]
 // -> 20
 ```
@@ -177,13 +168,10 @@ o[d]
 ```js
 o.hasOwnProperty('a')
 // -> true
-
 o.hasOwnProperty('b')
 // -> true
-
 o.hasOwnProperty(c)
 // -> true
-
 o.hasOwnProperty(d)
 // -> true
 ```
