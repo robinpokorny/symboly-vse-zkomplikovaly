@@ -1,30 +1,31 @@
-import { Notes } from 'mdx-deck'
-import { Appear, Image } from '@mdx-deck/components'
+import { Notes } from "mdx-deck";
+import { Appear, Image } from "@mdx-deck/components";
 
-export { default as theme } from './src/theme'
-
+export { default as theme } from "./src/theme";
 
 # Symbols <br/> complicated it all
 
 _by [Robin Pokorny](https://robinpokorny.com)_
+
 <Notes>Microphone, screen recording, start timer</Notes>
 
 ---
 
 # Why talk about it?
-<Notes>Good guy Robin</Notes>
+
+<Notes>It might come handy later</Notes>
 
 ---
 
 # Symbols
 
 ```js
-const sym = Symbol()
+const sym = Symbol();
 
-typeof sym
+typeof sym;
 // -> "symbol"
 
-sym === Symbol()
+sym === Symbol();
 // -> false
 ```
 
@@ -41,7 +42,9 @@ sym === Symbol()
     <li> string </li>
     <li> undefined </li>
     <li> null </li>
-    <li> <b>symbol</b> </li>
+    <li>
+      <b>symbol</b>
+    </li>
   </Appear>
 </ul>
 
@@ -50,12 +53,14 @@ sym === Symbol()
 ## Primitive values
 
 <ul>
-    <li> boolean </li>
-    <li> number </li>
-    <li> string </li>
-    <li> undefined </li>
-    <li> null </li>
-    <li> <b>symbol</b> </li>
+  <li> boolean </li>
+  <li> number </li>
+  <li> string </li>
+  <li> undefined </li>
+  <li> null </li>
+  <li>
+    <b>symbol</b>
+  </li>
 </ul>
 
 ### complication #1
@@ -75,18 +80,20 @@ const o = {
 o[sym1]
 // -> "My key is a symbol"
 ```
-<Notes>prop key = prop name | prop symbol </Notes>
+
+<Notes>property key = property name | property symbol</Notes>
 
 ---
 
 ## Convertion
 
 ```js
-Boolean(sym)
+Boolean(sym);
 // -> true
 ```
+
 ```js
-!sym
+!sym;
 // -> false
 ```
 
@@ -95,11 +102,12 @@ Boolean(sym)
 ## Convertion
 
 ```js
-Number(sym)
+Number(sym);
 // -> TypeError
 ```
+
 ```js
-sym * 5
+sym * 5;
 // -> TypeError
 ```
 
@@ -110,12 +118,14 @@ sym * 5
 ## Convertion
 
 ```js
-String(sym)
+String(sym);
 // -> "Symbol()"
 ```
+
 ```js
-'' + sym
-`${"${sym}"}`
+"" +
+  sym`;
+${"${sym}"}`;
 // -> TypeError
 ```
 
@@ -133,32 +143,31 @@ String(sym)
 
 ```js
 const c = Symbol();
-const d = Symbol.for("d")
+const d = Symbol("d");
 
 const o = { a: 1, [c]: 10 };
 
-Object.defineProperty(o, "b",
-  { value: 2, enumerable: false });
-Object.defineProperty(o, d,
-  { value: 20, enumerable: false});
+// non-enumerable by default
+Object.defineProperty(o, "b", { value: 2 });
+Object.defineProperty(o, d, { value: 20 });
 ```
 
 ---
 
-<img src={require('file-loader!./images/enum-symbol.png')} />
+<img src={require("file-loader!./images/enum-symbol.png")} />
 
 ---
 
 ## Access
 
 ```js
-o.a
+o.a;
 // -> 1
-o.b
+o.b;
 // -> 2
-o[c]
+o[c];
 // -> 10
-o[d]
+o[d];
 // -> 20
 ```
 
@@ -167,13 +176,13 @@ o[d]
 ## hasOwnProperty
 
 ```js
-o.hasOwnProperty('a')
+o.hasOwnProperty("a");
 // -> true
-o.hasOwnProperty('b')
+o.hasOwnProperty("b");
 // -> true
-o.hasOwnProperty(c)
+o.hasOwnProperty(c);
 // -> true
-o.hasOwnProperty(d)
+o.hasOwnProperty(d);
 // -> true
 ```
 
@@ -182,12 +191,13 @@ o.hasOwnProperty(d)
 ## keys
 
 ```js
-Object.keys(o)
+Object.keys(o);
 // -> ["a"]
 
-Object.entries(o)
+Object.entries(o);
 // -> [["a", 1]]
 ```
+
 ### complication #4
 
 ---
@@ -195,13 +205,13 @@ Object.entries(o)
 ## Descriptors
 
 ```js
-Object.getOwnPropertyDescriptors(o)
+Object.getOwnPropertyDescriptors(o);
 // -> {
 //   a: {…}, b: {…},
 //   Symbol(): {…}, Symbol(d): {…}
 // }
-
 ```
+
 ### complication #5
 
 ---
@@ -209,9 +219,9 @@ Object.getOwnPropertyDescriptors(o)
 ## getOwn
 
 ```js
-Object.getOwnPropertyNames(o)
+Object.getOwnPropertyNames(o);
 // -> ["a", "b"]
-Object.getOwnPropertySymbols(o)
+Object.getOwnPropertySymbols(o);
 // -> [Symbol(), Symbol(d)]
 ```
 
@@ -220,10 +230,10 @@ Object.getOwnPropertySymbols(o)
 ## assign
 
 ```js
-Object.assign({}, o)
+Object.assign({}, o);
 // -> {a: 1, Symbol(): 10}
 
-{ ...o }
+{ ...o };
 // -> {a: 1, Symbol(): 10}
 ```
 
@@ -232,10 +242,10 @@ Object.assign({}, o)
 ## JSON
 
 ```js
-JSON.stringify(o)
+JSON.stringify(o);
 // -> `{"a":1}`
-
 ```
+
 ### complication #6
 
 ---
@@ -243,7 +253,7 @@ JSON.stringify(o)
 ## Reflect
 
 ```js
-Reflect.ownKeys(o)
+Reflect.ownKeys(o);
 // -> ["a", "b", Symbol(), Symbol(d)]
 ```
 
@@ -256,39 +266,39 @@ Reflect.ownKeys(o)
 ## 1. Hidden properties
 
 ```js
-const ROLE = Symbol()
+const ROLE = Symbol();
 
-const createAdmin = (name) => ({
+const createAdmin = name => ({
   name,
   [ROLE]: "admin"
-})
+});
 
-const isAdmin = ({[ROLE]: role}) =>
-  role === 'admin'
+const isAdmin = ({ [ROLE]: role }) => role === "admin";
 ```
 
 ---
 
 ## 2. Meta-data
 
-* Well-known symbols on Symbol object
-* `Symbol.iterator`
-* written as `@@iterator`
-* Option for libraries
+- Well-known symbols on Symbol object
+- `Symbol.iterator`
+- written as `@@iterator`
+- Option for libraries
 
 ---
 
 ## Some well-known symbols
 
-* `@@iterator`
-* `@@toPrimitive`
-* `@@match`
-* `@@isConcatSpreadable`
+- `@@iterator`
+- `@@toPrimitive`
+- `@@match`
+- `@@isConcatSpreadable`
 
 ---
 
 # 👫
-# Symbols are your friends! 
+
+# Symbols are your friends!
 
 <Appear>
   <h3>If you do not overuse them…</h3>
