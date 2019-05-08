@@ -8,7 +8,7 @@
     "prebuild": "rimraf dist",
     "build": "yarn build:site && yarn build:pdf && yarn build:preview",
     "build:site": "mdx-deck build deck.mdx",
-    "build:preview":"mdx-deck-export png deck.mdx",
+    "build:preview": "mdx-deck-export png deck.mdx",
     "build:pdf": "mdx-deck-export pdf deck.mdx",
     "start": "mdx-deck deck.mdx",
     "format": "prettier --write '{,!(dist)/**/}*.{js,json,mdx}'"
