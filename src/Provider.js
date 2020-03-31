@@ -14,7 +14,7 @@ const Provider = ({ children, index, length }) => (
         justifyContent: "space-between"
       }}
     >
-      <span>Apríloví { Frontendisti.cz }</span>
+      <span>{"Apríloví { Frontendisti.cz }"}</span>
       <a
         style={{ color: "#f00", textDecoration: "none" }}
         href="https://twitter.com/robinpokorny"
