@@ -4,7 +4,7 @@ import { Appear, Image, Head } from "@mdx-deck/components";
 export { default as theme } from "./src/theme";
 
 <Head>
-  <title>Symbols complicated it all – Robin Pokorny</title>
+  <title>Symboly to celé zkomplikovaly – Robin Pokorný</title>
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:creator" content="@robinpokorny" />
   <meta
@@ -13,19 +13,19 @@ export { default as theme } from "./src/theme";
   />
   <meta
     property="og:title"
-    content="Symbols complicated it all – Robin Pokorny"
+    content="Symboly to celé zkomplikovaly – Robin Pokorný"
   />
 </Head>
 
-# Symbols <br/> complicated it all
+# Symboly <br/> to celé zkomplikovaly
 
-_by [Robin Pokorny](https://robinpokorny.com)_
+_[Robin Pokorný](https://robinpokorny.com)_
 
 <Notes>Microphone, screen recording, start timer</Notes>
 
 ---
 
-# Why talk about it?
+# Proč o tom mluvíme?
 
 <Notes>It might come handy later</Notes>
 
@@ -47,7 +47,7 @@ sym === Symbol();
 
 ---
 
-## Primitive values
+## Primitivní hodnoty
 
 <ul>
   <Appear>
@@ -64,7 +64,7 @@ sym === Symbol();
 
 ---
 
-## Primitive values
+## Primitivní hodnoty
 
 <ul>
   <li> boolean </li>
@@ -77,29 +77,29 @@ sym === Symbol();
   </li>
 </ul>
 
-### complication #1
+### komplikace #1
 
 ---
 
-## What for?
+## K čemu?
 
 ```js
 const sym = Symbol()
 
 const o = {
-  name: "My key is a string",
-  [sym]: "My key is a symbol"
+  name: "Můj klíč je řetězec",
+  [sym]: "Můj klíč je symbol"
 }
 
 o[sym]
-// -> "My key is a symbol"
+// -> "Můj klíč je symbol"
 ```
 
 <Notes>property key = property name | property symbol</Notes>
 
 ---
 
-## Convertion
+## Konverze
 
 ```js
 Boolean(sym);
@@ -113,7 +113,7 @@ Boolean(sym);
 
 ---
 
-## Convertion
+## Konverze
 
 ```js
 Number(sym);
@@ -125,11 +125,11 @@ sym * 5;
 // -> TypeError
 ```
 
-### complication #2
+### komplikace #2
 
 ---
 
-## Convertion
+## Konverze
 
 ```js
 String(sym);
@@ -137,34 +137,27 @@ String(sym);
 ```
 
 ```js
-"" +
-  sym`;
+"" + sym`;
 ${"${sym}"}`;
 // -> TypeError
 ```
 
-### complication #3
+### komplikace #3
 
 ---
 
-# Object inspection
-
----
-
-## symbol vs enumerable
+# Procházení objektu
 
 ---
 
 ```js
-const c = Symbol();
-const d = Symbol("d");
+const b = Symbol();
 
-const o = { a: 1, [c]: 10 };
-
-// non-enumerable by default
-Object.defineProperty(o, "b", { value: 2 });
-Object.defineProperty(o, d, { value: 20 });
+const o = { a: 1, [b]: 10 };
 ```
+
+<Notes>enumerable</Notes>
+
 
 ---
 
@@ -172,17 +165,13 @@ Object.defineProperty(o, d, { value: 20 });
 
 ---
 
-## Access
+## Čtení
 
 ```js
 o.a;
 // -> 1
 o.b;
-// -> 2
-o[c];
 // -> 10
-o[d];
-// -> 20
 ```
 
 ---
@@ -192,11 +181,7 @@ o[d];
 ```js
 o.hasOwnProperty("a");
 // -> true
-o.hasOwnProperty("b");
-// -> true
-o.hasOwnProperty(c);
-// -> true
-o.hasOwnProperty(d);
+o.hasOwnProperty(b);
 // -> true
 ```
 
@@ -212,21 +197,21 @@ Object.entries(o);
 // -> [["a", 1]]
 ```
 
-### complication #4
+### komplikace #4
 
 ---
 
-## Descriptors
+## Descriptory
 
 ```js
 Object.getOwnPropertyDescriptors(o);
 // -> {
-//   a: {…}, b: {…},
-//   Symbol(): {…}, Symbol(d): {…}
+//   a: {…},
+//   Symbol(): {…}
 // }
 ```
 
-### complication #5
+### komplikace #5
 
 ---
 
@@ -234,9 +219,9 @@ Object.getOwnPropertyDescriptors(o);
 
 ```js
 Object.getOwnPropertyNames(o);
-// -> ["a", "b"]
+// -> ["a"]
 Object.getOwnPropertySymbols(o);
-// -> [Symbol(), Symbol(d)]
+// -> [Symbol()]
 ```
 
 ---
@@ -260,7 +245,7 @@ JSON.stringify(o);
 // -> `{"a":1}`
 ```
 
-### complication #6
+### komplikace #6
 
 ---
 
@@ -268,16 +253,16 @@ JSON.stringify(o);
 
 ```js
 Reflect.ownKeys(o);
-// -> ["a", "b", Symbol(), Symbol(d)]
+// -> ["a", Symbol()]
 ```
 
 ---
 
-# Where to use
+# Kde se hodí
 
 ---
 
-## 1. Hidden properties
+## 1. Skryté vlastnosti
 
 ```js
 const ROLE = Symbol();
@@ -294,14 +279,14 @@ const isAdmin = ({ [ROLE]: role }) => role === "admin";
 
 ## 2. Meta-data
 
-- Well-known symbols on Symbol object
+- Známé (well-known) symboly
 - `Symbol.iterator`
-- written as `@@iterator`
-- Option for libraries
+- psané jako `@@iterator`
+- Vhodné pro knihovny
 
 ---
 
-## Some well-known symbols
+## Vybrané známé symboly
 
 - `@@iterator`
 - `@@toPrimitive`
@@ -312,10 +297,10 @@ const isAdmin = ({ [ROLE]: role }) => role === "admin";
 
 # 👫
 
-# Symbols are your friends!
+# Symboly jsou tví přátelé!
 
 <Appear>
-  <h3>If you do not overuse them…</h3>
+  <h3>Když je nebudete zneužívat…</h3>
 </Appear>
 
 ---
