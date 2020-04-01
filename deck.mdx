@@ -137,8 +137,8 @@ String(sym);
 ```
 
 ```js
-"" + sym`;
-${"${sym}"}`;
+"" + sym;
+`${"${sym}"}`;
 // -> TypeError
 ```
 
@@ -161,16 +161,12 @@ const o = { a: 1, [b]: 10 };
 
 ---
 
-<img src={require("file-loader!./images/enum-symbol.png")} />
-
----
-
 ## Čtení
 
 ```js
 o.a;
 // -> 1
-o.b;
+o[b];
 // -> 10
 ```
 
@@ -198,20 +194,6 @@ Object.entries(o);
 ```
 
 ### komplikace #4
-
----
-
-## Descriptory
-
-```js
-Object.getOwnPropertyDescriptors(o);
-// -> {
-//   a: {…},
-//   Symbol(): {…}
-// }
-```
-
-### komplikace #5
 
 ---
 
@@ -245,7 +227,7 @@ JSON.stringify(o);
 // -> `{"a":1}`
 ```
 
-### komplikace #6
+### komplikace #5
 
 ---
 
@@ -272,12 +254,13 @@ const createAdmin = name => ({
   [ROLE]: "admin"
 });
 
-const isAdmin = ({ [ROLE]: role }) => role === "admin";
+const isAdmin = ({ [ROLE]: role }) =>
+  role === "admin";
 ```
 
 ---
 
-## 2. Meta-data
+## 2. Metadata
 
 - Známé (well-known) symboly
 - `Symbol.iterator`
@@ -288,9 +271,9 @@ const isAdmin = ({ [ROLE]: role }) => role === "admin";
 
 ## Vybrané známé symboly
 
-- `@@iterator`
+- `@@iterator` a `@@asyncIterator`
 - `@@toPrimitive`
-- `@@match`
+- `@@replace`, `@@match` a `@@search`
 - `@@isConcatSpreadable`
 
 ---
